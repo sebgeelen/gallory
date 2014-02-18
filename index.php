@@ -1,3 +1,11 @@
+<?php
+
+
+
+
+
+
+/*
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +19,7 @@
   <h2>Directory handle: <? echo $handle ?></h2>
   <ul>
     <?php
-    /* This is the correct way to loop over the directory. */
+    // This is the correct way to loop over the directory.
     while (false !== ($entry = readdir($handle))) { ?>
         <li><? echo $entry ?></li>
     <?php } ?>
@@ -21,3 +29,6 @@
 } ?>
 </body>
 </html>
+
+
+*/ ?>

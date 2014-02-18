@@ -2,3 +2,15 @@ AddDefaultCharset UTF-8
 
 order allow,deny
 allow from all
+
+<IfModule mod_rewrite.c>
+
+    RewriteEngine on
+
+    RewriteCond %{HTTP_HOST} !^(www\.)
+    RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+    RewriteCond $1 !^(assets[^.]*|[^\/]*)?[^\/]+(php|html|gif|jpg|jpeg|png|ico|pdf|css|js)$
+    RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+
+</IfModule>
