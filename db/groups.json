@@ -2,17 +2,20 @@
   {
     "id" : 1,
     "name" : "test heritage",
-    "section" : 1,
+    "alias" : "heritage",
+    "parentId" : 1,
     "color" : "22ee44"
   },{
     "id" : 2,
     "name" : "test naissance",
-    "section" : 2,
+    "alias" : "naissance",
+    "parentId" : 2,
     "color" : "888888"
   },{
     "id" : 3,
     "name" : "test epa",
-    "section" : 3,
+    "alias" : "epatest",
+    "parentId" : 3,
     "color" : "992222"
   }
 ]

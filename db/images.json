@@ -2,8 +2,22 @@
   {
     "id" : 1,
     "name" : "l'épopée du cigne !",
-    "slug" : "l-epopee-du-cigne-",
-    "group" : 1,
+    "alias" : "l-epopee-du-cigne-",
+    "parentId" : 1,
     "color" : "222222"
+  },
+  {
+    "id" : 2,
+    "name" : "test 2",
+    "alias" : "test-2",
+    "parentId" : 1,
+    "color" : "333333"
+  },
+  {
+    "id" : 3,
+    "name" : "test 3",
+    "alias" : "test-3",
+    "parentId" : 1,
+    "color" : "449933"
   }
 ]

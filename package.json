@@ -1,0 +1,26 @@
+{
+  "name": "Gallory",
+  "description": "Just a Gallery",
+  "version": "0.0.1",
+  "homepage": "https://github.com/sebgeelen/gallory",
+  "author": {
+    "name": "Sébastien Geelen",
+    "url": "https://github.com/sebgeelen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sebgeelen/gallory.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/sebgeelen/gallory/blob/master/LICENSE"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-contrib-less": "~0.5.0",
+    "grunt-contrib-uglify": "~0.3.2"
+  }
+}

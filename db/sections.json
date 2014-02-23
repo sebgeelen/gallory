@@ -1,12 +1,15 @@
 [
   {
     "id" : 1,
-    "name" : "L'Héritage"
+    "name" : "L'Héritage",
+    "alias" : "heritage"
   },{
     "id" : 2,
-    "name" : "La Naissance"
+    "name" : "La Naissance",
+    "alias" : "naissance"
   },{
     "id" : 3,
-    "name" : "L'Épanouissement"
+    "name" : "L'Épanouissement",
+    "alias" : "epanouissement"
   }
 ]

@@ -1,34 +1,12 @@
 <?php
+ini_set('display_errors', E_ALL^E_NOTICE);
 
+$rootPath =  dirname(__FILE__);
+set_include_path(get_include_path() . PATH_SEPARATOR . $rootPath);
+require_once 'mvc/controller/gaMainController.php';
 
+// do the routing
+$controller = new mainController();
+$controller->route($_GET['q']);
 
-
-
-
-/*
-<!DOCTYPE html>
-<html>
-<head>
-  <title> Laurence Snackers Peintre | laurencesnackers.be</title>
-</head>
-<body>
-<h1>Laurence Snackers</h1>
-
-<?php if ($handle = opendir('./public/uploads')) { ?>
-  <hr />
-  <h2>Directory handle: <? echo $handle ?></h2>
-  <ul>
-    <?php
-    // This is the correct way to loop over the directory.
-    while (false !== ($entry = readdir($handle))) { ?>
-        <li><? echo $entry ?></li>
-    <?php } ?>
-  </ul>
-  <?php
-  closedir($handle);
-} ?>
-</body>
-</html>
-
-
-*/ ?>
+?>
