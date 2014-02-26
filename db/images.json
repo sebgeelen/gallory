@@ -9,14 +9,28 @@
   {
     "id" : 2,
     "name" : "test 2",
-    "alias" : "test-2",
+    "alias" : "image_2",
     "parentId" : 1,
     "color" : "333333"
   },
   {
     "id" : 3,
     "name" : "test 3",
-    "alias" : "test-3",
+    "alias" : "image_3",
+    "parentId" : 1,
+    "color" : "449933"
+  },
+  {
+    "id" : 4,
+    "name" : "test 4",
+    "alias" : "image_4",
+    "parentId" : 1,
+    "color" : "333333"
+  },
+  {
+    "id" : 5,
+    "name" : "test 5",
+    "alias" : "image_5",
     "parentId" : 1,
     "color" : "449933"
   }

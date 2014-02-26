@@ -35,7 +35,8 @@ class mainController
 
     if($query[0] == "admin") {
       array_shift($query);
-      $this->_adminRoute($query);
+      $adminController = new adminController();
+      $adminController->route($query);
     } else {
       $this->_normalRoute($query);
     }
