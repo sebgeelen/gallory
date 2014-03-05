@@ -5,10 +5,11 @@ require_once 'mvc/model/gaImageModel.php';
 
 require_once 'mvc/view/gaMainView.php';
 
-class mainController
+class adminController
 {
-  const SALT = "dxa<<?./+%>gf_)°klqs$`ù^)--";
-  const LOGGED_COOKIE_VAL = "94fDUJi351-678::Brt";
+  private $_salt            = "dxa<<?./+%>gf_)°klqs$`ù^)--";
+  private $_loggedCookieVal = "94fDUJi351-678::Brt";
+
   private $_sections;
   private $_groups;
   private $_images;
@@ -32,13 +33,23 @@ class mainController
 
   private function _adminRoute($query)
   {
-    if(!$this->_isLogged() && $query[0] == 'login') {
+    if(!isset($query[0])) {
+      $query[0] = null;
+    }
+
+    if($query[0] == 'login') {
 
       $this->_displayLogin();
 
     } else if($this->_isLogged()) {
 
       switch ($query[0]) {
+        case 'logoff':
+          $this->logMeOff();
+          break;
+        case 'post':
+          $this->_processPostRequest();
+          break;
         case 'home':
         default:
           $this->_displayHome();
@@ -50,26 +61,53 @@ class mainController
     }
   }
   private function _isLogged() {
-    return isset($_COOKIE["lgok"]) && $_COOKIE["lgok"] === LOGGED_COOKIE_VAL;
+    return isset($_COOKIE["lgok"]) && $_COOKIE["lgok"] === $this->_loggedCookieVal;
   }
 
-  public function _displayHome()
+  private function _processPostRequest()
+  {
+    if(isset($_POST["action"]) && $this->_isLogged()) {
+      switch ($_POST["action"]) {
+        case 'addSection':
+
+          break;
+      }
+    } else {
+      $this->_viewManager->render('404');
+    }
+  }
+
+  private function _logMeOff() {
+    setcookie('lgok', '', time() - ( 3600 * 24 ), '/admin');
+  }
+
+  private function _logMeIn($until = null) {
+    if(is_null($until)) {
+      $until = time() + ( 3600 * 24 );  // tomorow
+    }
+
+    setcookie('lgok', $this->_loggedCookieVal, $until, '/admin');
+
+    $redirect = "http://".$_SERVER['HTTP_HOST'] . '/admin/home';
+    header("Location: $redirect");
+    exit();
+  }
+
+  private function _displayHome()
   {
     echo $this->_viewManager->render('adminHome');
   }
 
-  public function _displayLogin()
+  private function _displayLogin()
   {
-    if(isset($_POST["pwd"]) && sha1($_POST["pwd"] . SALT) === sha1("rantanplan" . SALT)) {     // try to login, TODO store the sha1Version
-      $tomorow = time() + ( 3600 * 24 );
-
-      setcookie('lgok', LOGGED_COOKIE_VAL, $tomorow, '/admin');
-
-      $redirect = "http://".$_SERVER['HTTP_HOST'] . 'admin/home';
+    if(isset($_POST["pwd"]) && sha1($_POST["pwd"] . $this->_salt) === sha1("rantanplan" . $this->_salt)) {     // try to login, TODO store the sha1Version
+      $this->_logMeIn();
+    } else if ($this->_isLogged()) {
+      $redirect = "http://".$_SERVER['HTTP_HOST'] . '/admin/home';
       header("Location: $redirect");
-      exit();
+    } else {
+      echo $this->_viewManager->render('login');
     }
-    echo $this->_viewManager->render('login');
   }
 
 }

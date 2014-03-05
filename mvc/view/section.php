@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title> Laurence Snackers Peintre | laurencesnackers.be</title>
 
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />

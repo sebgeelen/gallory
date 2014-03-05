@@ -5,6 +5,8 @@ require_once 'mvc/model/gaImageModel.php';
 
 require_once 'mvc/view/gaMainView.php';
 
+require_once 'mvc/controller/gaAdminController.php';
+
 class mainController
 {
 
@@ -33,7 +35,7 @@ class mainController
       array_pop($query);
     }
 
-    if($query[0] == "admin") {
+    if(!empty($query) && $query[0] == "admin") {
       array_shift($query);
       $adminController = new adminController();
       $adminController->route($query);
@@ -127,9 +129,9 @@ class mainController
     }
 
     $data = array(
-      "section" => $this->_sections->getByAlias(array_shift($query)),
-      "group"   => $this->_groups->getByAlias(array_shift($query)),
-      "image"   => $this->_images->getByAlias(array_shift($query))
+      "section" => $section,
+      "group"   => $group,
+      "image"   => $image
     );
 
     echo $this->_viewManager->render('image', $data);

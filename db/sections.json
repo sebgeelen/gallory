@@ -2,7 +2,8 @@
   {
     "id" : 1,
     "name" : "L'Héritage",
-    "alias" : "heritage"
+    "alias" : "heritage",
+    "htmlText": "<p>bla bla bla.</p><p>Un petit texte de remplissage pour la forme.</p><p>Car je n'ai pas accès a loremp ipsum d'ici, <br>je suis dans le train.</p>"
   },{
     "id" : 2,
     "name" : "La Naissance",

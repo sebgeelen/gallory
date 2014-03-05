@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title> Laurence Snackers Peintre | laurencesnackers.be</title>
 
-    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 
     <!-- Javascript Library / Framework -->
     <script src="/assets/js/libs/jquery.js"></script>
@@ -13,12 +14,19 @@
   <body>
     <div id="container">
       <h1>Laurence Snackers</h1>
-      <div id="section-1" class="section">
-        <h2>Home</h2>
+      <div id="section-container" class="section">
           <?php
-          foreach ($sections as $section) { ?>
-          <a href="/<?php echo $section["alias"]; ?>"><?php echo $section["name"]; ?></a><br/>
-          <?php }
+          $cssWidth = floor( (100 / count($sections) ) * 1000 ) / 1000;
+
+          foreach ($sections as $section) {
+          ?><a href="/<?php echo $section["alias"]; ?>" class="link-section link-section-<?php echo $section["id"]; ?>" style="width:<?php echo $cssWidth; ?>%">
+            <div class="descr-c">
+              <h2><?php echo $section["name"]; ?></h2>
+              <div class="descr tr-opacity">
+                <?php echo $section["htmlText"]; ?>
+              </div>
+            </div>
+          </a><?php }
           ?>
       </div>
     </div>

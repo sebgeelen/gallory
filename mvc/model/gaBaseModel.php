@@ -32,6 +32,11 @@ class baseModel
     return $this->_singleParam("id", $id);
   }
 
+  public function removeById($id)
+  {
+    return $this->_singleParam("id", $id);
+  }
+
   public function getByParentId($id)
   {
     return $this->_allParams("parentId", $id);
