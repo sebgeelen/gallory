@@ -16,13 +16,22 @@
       <h1>Laurence Snackers : Adminisration</h1>
       <div>
         <h2>Choisisez une action</h2>
+        <h2>Ajouter</h2>
         <ul>
-          <li><a href="./addImage">Ajouter une peinture</a></li>
-          <li><a href="./addGroup">Ajouter une collection</a></li>
-          <li><a href="./addSection">Ajouter une section</a></li>
-          <li><a href="./delImage">Supprimer une peinture</a></li>
-          <li><a href="./delGroup">Supprimer une collection</a></li>
-          <li><a href="./delSection">Supprimer une section</a></li>
+          <li><a href="/admin/addImage">Ajouter une peinture</a></li>
+          <li><a href="/admin/addGroup">Ajouter une collection</a></li>
+          <li><a href="/admin/addSection">Ajouter une section</a></li>
+        </ul>
+        <h2>Éditer</h2>
+        <ul>
+          <li><a href="/admin/editGroup">Éditer une collection</a></li>
+          <li><a href="/admin/editSection">Éditer une section</a></li>
+        </ul>
+        <h2>Suprimmer</h2>
+        <ul>
+          <li><a href="/admin/delImage">Supprimer une peinture</a></li>
+          <li><a href="/admin/delGroup">Supprimer une collection</a></li>
+          <li><a href="/admin/delSection">Supprimer une section</a></li>
         </ul>
       </div>
     </div>

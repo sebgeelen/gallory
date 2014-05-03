@@ -28,7 +28,6 @@ class adminController
   public function route($query)
   {
       $this->_adminRoute($query);
-
   }
 
   private function _adminRoute($query)
@@ -43,6 +42,17 @@ class adminController
 
     } else if($this->_isLogged()) {
 
+      // default namespaced pages
+      $pagesAvailable = array(
+        'addImage', 'addGroup', 'addSection',
+        'editImage', 'editGroup', 'editSection',
+        'delImage', 'delGroup', 'delSection'
+      );
+      if(in_array($query[0], $pagesAvailable)) {
+        $this->_displayPage(ucfirst($query[0]));
+      }
+
+      // other pages
       switch ($query[0]) {
         case 'logoff':
           $this->logMeOff();
@@ -67,6 +77,7 @@ class adminController
   private function _processPostRequest()
   {
     if(isset($_POST["action"]) && $this->_isLogged()) {
+      var_dump($_POST);
       switch ($_POST["action"]) {
         case 'addSection':
 
@@ -93,21 +104,37 @@ class adminController
     exit();
   }
 
-  private function _displayHome()
-  {
-    echo $this->_viewManager->render('adminHome');
-  }
-
+  /* * * * * * * * * pages */
   private function _displayLogin()
   {
     if(isset($_POST["pwd"]) && sha1($_POST["pwd"] . $this->_salt) === sha1("rantanplan" . $this->_salt)) {     // try to login, TODO store the sha1Version
       $this->_logMeIn();
     } else if ($this->_isLogged()) {
-      $redirect = "http://".$_SERVER['HTTP_HOST'] . '/admin/home';
+      $redirect = "http://".$_SERVER['HTTP_HOST'] . '/admin/home/';
       header("Location: $redirect");
     } else {
       echo $this->_viewManager->render('login');
     }
+  }
+
+  private function _displayHome()
+  {
+    echo $this->_viewManager->render('adminHome');
+  }
+
+  private function _displayPage($pageName)
+  {
+    $sections = $this->_sections->getAll();
+    $groups   = $this->_groups->getAll();
+    $images   = $this->_images->getAll();
+
+    $data = array(
+      "sections" => $sections,
+      "groups"   => $groups,
+      "images"   => $images
+    );
+
+    echo $this->_viewManager->render('admin' . $pageName, $data);
   }
 
 }
