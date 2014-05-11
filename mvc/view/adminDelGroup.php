@@ -22,7 +22,7 @@
             <label>selectionnez la ou les collection(s) à supprimer </label><br>
               <?php
               foreach ($groups as $group) { ?>
-              <input type="checkbox" name="group" value="<?php echo $group["alias"]; ?>">&nbsp;<?php echo $group["name"]; ?><br>
+              <input type="checkbox" name="id" value="<?php echo $group["id"]; ?>">&nbsp;<?php echo $group["name"]; ?><br>
               <?php }
               ?>
           </fieldset>

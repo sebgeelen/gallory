@@ -23,7 +23,7 @@
             <label>selectionnez la ou les section(s) à supprimer </label><br>
               <?php
               foreach ($sections as $section) { ?>
-              <input type="checkbox" name="section" value="<?php echo $section["alias"]; ?>">&nbsp;<?php echo $section["name"]; ?><br>
+              <input type="checkbox" name="id" value="<?php echo $section["id"]; ?>">&nbsp;<?php echo $section["name"]; ?><br>
               <?php }
               ?>
           </fieldset>

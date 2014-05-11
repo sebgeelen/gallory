@@ -21,7 +21,7 @@
             <label>selectionnez la ou les image(s) à supprimer </label><br>
               <?php
               foreach ($images as $image) { ?>
-              <input type="checkbox" name="image" value="<?php echo $image["alias"]; ?>">&nbsp;<?php echo $image["name"]; ?><br>
+              <input type="checkbox" name="id" value="<?php echo $image["id"]; ?>">&nbsp;<?php echo $image["name"]; ?><br>
               <?php }
               ?>
           </fieldset>

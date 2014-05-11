@@ -12,6 +12,10 @@ module.exports = (grunt) ->
         src: ['./assets/css/main.less']
         dest: './assets/css/main.css'
 
+      admin:
+        src: ['./assets/css/admin.less']
+        dest: './assets/css/admin.css'
+
     watch:
       less:
         files: ['./assets/css/*.less'],

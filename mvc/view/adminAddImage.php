@@ -16,7 +16,7 @@
       <h1>Laurence Snackers : Adminisration</h1>
       <div>
         <h2>Sélectionnez l'image à ajouter.</h2>
-        <form method="post" action="/admin/post">
+        <form method="post" action="/admin/post" enctype="multipart/form-data">
           <fieldset>
             <label>Nom de la peinture : </label>
             <input type="text" name="name" /><br>

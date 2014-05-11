@@ -87,7 +87,6 @@ class baseModel
   /* put */
   public function add($data)
   {
-    var_dump($this->_defaultData);
     $data = array_merge($data, $this->_defaultData);
 
     $data['id'] = end($this->_jsonData)['id'] + 1 ;
@@ -101,15 +100,27 @@ class baseModel
     }
 
     $this->_jsonData[] = $data;
-    return $this->_saveJson();
+    $res = $this->_saveJson();
+
+    if ($res) {
+      return $data;
+    } else {
+      return false;
+    }
+
   }
 
   /* delete */
   public function removeById($id)
   {
-    $this->_singleParam("id", $id);
+    foreach ($this->_jsonData as $key => $data) {
+      if($data["id"] == $id) {
+        unset($this->_jsonData[$key]);
+        break;
+      }
+    }
 
-    $this->_saveJson();
+    return $this->_saveJson();
   }
 
   /* STATIC */

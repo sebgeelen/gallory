@@ -46,7 +46,8 @@ class adminController
       $pagesAvailable = array(
         'addImage', 'addGroup', 'addSection',
         'editImage', 'editGroup', 'editSection',
-        'delImage', 'delGroup', 'delSection'
+        'delImage', 'delGroup', 'delSection',
+        'resize'
       );
       if(in_array($query[0], $pagesAvailable)) {
         $this->_displayPage(ucfirst($query[0]));
@@ -74,23 +75,64 @@ class adminController
     return isset($_COOKIE["lgok"]) && $_COOKIE["lgok"] === $this->_loggedCookieVal;
   }
 
+  private function _uploadImage($name) {
+    if($_FILES['img']['error']) {
+      return false;
+    }
+
+    $info    = pathinfo($_FILES['img']['name']);
+    $ext     = $info['extension']; // get the extension of the file
+    if($ext == 'jpg' || $ext == 'jpeg' ) {
+
+      $target = 'gallery/big/' . $name . '.jpg';
+      move_uploaded_file($_FILES['img']['tmp_name'], $target);
+
+    } else {
+      return false;
+    }
+  }
+
   private function _processPostRequest()
   {
     if(isset($_POST["action"]) && $this->_isLogged()) {
 
       $action = $_POST['action'];
       unset($_POST['action']);
+      //var_dump($_POST);
 
       switch ($action) {
+
         case 'addImage':
+          $data = $this->_images->add($_POST);
+          $this->_uploadImage($data['alias']);
+          $this->_viewManager->render('adminResize', array('newImageName' => $data['alias']));
           break;
         case 'addGroup':
-          $this->_groups->add($_POST);
+          $res = $this->_groups->add($_POST);
           break;
         case 'addSection':
-
+          $res = $this->_sections->add($_POST);
           break;
+
+        case 'delImage':
+          $res = $this->_images->removeById($_POST['id']);
+          break;
+        case 'delGroup':
+          $res = $this->_groups->removeById($_POST['id']);
+          break;
+        case 'delSection':
+          $res = $this->_sections->removeById($_POST['id']);
+          break;
+
+        case 'editGroup':
+          $res = $this->_groups->updateById($_POST);
+          break;
+        case 'editGroup':
+          $res = $this->_sections->updateById($_POST);
+          break;
+
       }
+      $this->_redirect('/admin/home/');
     } else {
       $this->_viewManager->render('404');
     }
@@ -106,10 +148,7 @@ class adminController
     }
 
     setcookie('lgok', $this->_loggedCookieVal, $until, '/admin');
-
-    $redirect = "http://".$_SERVER['HTTP_HOST'] . '/admin/home';
-    header("Location: $redirect");
-    exit();
+    $this->_redirect('/admin/home/');
   }
 
   /* * * * * * * * * pages */
@@ -118,8 +157,7 @@ class adminController
     if(isset($_POST["pwd"]) && sha1($_POST["pwd"] . $this->_salt) === sha1("rantanplan" . $this->_salt)) {     // try to login, TODO store the sha1Version
       $this->_logMeIn();
     } else if ($this->_isLogged()) {
-      $redirect = "http://".$_SERVER['HTTP_HOST'] . '/admin/home/';
-      header("Location: $redirect");
+      $this->_redirect('/admin/home/');
     } else {
       echo $this->_viewManager->render('login');
     }
@@ -143,6 +181,13 @@ class adminController
     );
 
     echo $this->_viewManager->render('admin' . $pageName, $data);
+  }
+
+  private function _redirect($page)
+  {
+    $redirect = "http://".$_SERVER['HTTP_HOST'] . $page;
+    header("Location: $redirect");
+    exit();
   }
 
 }
