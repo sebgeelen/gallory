@@ -77,8 +77,16 @@ class adminController
   private function _processPostRequest()
   {
     if(isset($_POST["action"]) && $this->_isLogged()) {
-      var_dump($_POST);
-      switch ($_POST["action"]) {
+
+      $action = $_POST['action'];
+      unset($_POST['action']);
+
+      switch ($action) {
+        case 'addImage':
+          break;
+        case 'addGroup':
+          $this->_groups->add($_POST);
+          break;
         case 'addSection':
 
           break;

@@ -6,16 +6,20 @@ class baseModel
   private $_jsonRaw;
   private $_jsonData;
 
-  public function __construct($src)
+  private $_defaultData;
+
+  public function __construct($src, $defaultData = array())
   {
-    $this->_jsonSrc = $src;
+    $this->_jsonSrc     = $src;
+    $this->_defaultData = $defaultData;
+
     $this->_loadJson();
   }
 
   private function _saveJson()
   {
-    $dataString = JSON.stringify(json_encode($this->_jsonData));
-    file_put_contents($this->_jsonSrc, $dataString);
+    $dataString = json_encode($this->_jsonData);
+    return file_put_contents($this->_jsonSrc, $dataString);
   }
 
   private function _loadJson()
@@ -73,7 +77,7 @@ class baseModel
   }
 
   /* update */
-  public function updateById($id, data)
+  public function updateById($id, $data)
   {
     $this->_singleParam("id", $id);
 
@@ -81,18 +85,54 @@ class baseModel
   }
 
   /* put */
-  public function addNew($data)
+  public function add($data)
   {
-    $this->_singleParam("id", $id);
+    var_dump($this->_defaultData);
+    $data = array_merge($data, $this->_defaultData);
 
-    $this->_saveJson();
+    $data['id'] = end($this->_jsonData)['id'] + 1 ;
+    $data['alias'] = self::slugify($data["name"]);
+
+    $propToInt = array("id", "parentId");
+    foreach ($propToInt as $prop) {
+      if (isset($data[$prop])) {
+        $data[$prop] = intval($data[$prop]);
+      }
+    }
+
+    $this->_jsonData[] = $data;
+    return $this->_saveJson();
   }
+
   /* delete */
   public function removeById($id)
   {
     $this->_singleParam("id", $id);
 
     $this->_saveJson();
+  }
+
+  /* STATIC */
+  static function slugify($text)
+  {
+    // replace non letter or digits by -
+    $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+    // trim
+    $text = trim($text, '-');
+    // transliterate
+    if (function_exists('iconv')) {
+      $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    }
+    // lowercase
+    $text = strtolower($text);
+    // remove unwanted characters
+    $text = preg_replace('~[^-\w]+~', '', $text);
+    // text is empty
+    if (empty($text)) {
+      $text = 'n-a';
+    }
+    // return
+    return $text;
   }
 
 }

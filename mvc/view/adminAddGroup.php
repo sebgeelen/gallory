@@ -23,10 +23,10 @@
 
             <label>Section : </label>
             <span class="tooltip" title="Si la section n'est pas présente dans la liste il faut la créer.">?</span>
-            <select name="section">
+            <select name="parentId">
               <?php
               foreach ($sections as $section) { ?>
-              <option value="<?php echo $section["alias"]; ?>"><?php echo $section["name"]; ?></option>
+              <option value="<?php echo $section["id"]; ?>"><?php echo $section["name"]; ?></option>
               <?php }
               ?>
             </select>
